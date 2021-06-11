@@ -1,4 +1,10 @@
-fanuc.sln.DotSettings.user
+*.bak
+*.log
+*.orig
+*.save
+*~
 .idea/
+fanuc.sln.DotSettings.user
 fanuc/bin/
 fanuc/obj/
+test*
