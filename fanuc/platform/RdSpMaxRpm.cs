@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdSpMaxRpm(sp_no));
         }
-        
+
         public dynamic RdSpMaxRpm(short sp_no = 1)
         {
             Focas1.ODBSPN serialspindle = new Focas1.ODBSPN();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdspmaxrpm = new {sp_no}},
                 response = new {cnc_rdspmaxrpm = new {serialspindle}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

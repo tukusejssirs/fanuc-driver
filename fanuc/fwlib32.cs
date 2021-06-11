@@ -87,7 +87,7 @@ namespace l99.driver.fanuc
     /* cnc_actf:read actual axis feedrate(F) */
     /* cnc_acts:read actual spindle speed(S) */
     [StructLayout(LayoutKind.Sequential,Pack=4)]
-    public class ODBACT 
+    public class ODBACT
     {
         [MarshalAs(UnmanagedType.ByValArray,SizeConst=2)]
         public short[]  dummy;      /* dummy */
@@ -97,7 +97,7 @@ namespace l99.driver.fanuc
     /* cnc_acts2:read actual spindle speed(S) */
     /* (All or specified ) */
     [StructLayout(LayoutKind.Sequential,Pack=4)]
-    public class ODBACT2 
+    public class ODBACT2
     {
         public short    datano;     /* spindle number */
         public short    type;       /* dummy */
@@ -115,7 +115,7 @@ namespace l99.driver.fanuc
     /* cnc_absolute2:read absolute axis position 2 */
     /* cnc_relative2:read relative axis position 2 */
     [StructLayout(LayoutKind.Sequential,Pack=4)]
-    public class ODBAXIS 
+    public class ODBAXIS
     {
         public short    dummy ;  /* dummy */
         public short    type ;   /* axis number */
@@ -125,7 +125,7 @@ namespace l99.driver.fanuc
 
     /* cnc_rddynamic:read all dynamic data */
     [StructLayout(LayoutKind.Sequential,Pack=4)]
-    public class FAXIS 
+    public class FAXIS
     {
         [MarshalAs(UnmanagedType.ByValArray,SizeConst=MAX_AXIS)]
         public int[]    absolute;    /* absolute position */
@@ -137,7 +137,7 @@ namespace l99.driver.fanuc
         public int[]    distance;    /* distance to go */
     }
     [StructLayout(LayoutKind.Sequential,Pack=4)]
-    public class OAXIS 
+    public class OAXIS
     {
         public int absolute ;  /* absolute position */
         public int machine ;   /* machine position */
@@ -623,8 +623,8 @@ namespace l99.driver.fanuc
         {
             public short reg_prg;       /* registered program number */
             public short unreg_prg;     /* unregistered program number */
-            public int used_mem;      /* used memory area */
-            public int unused_mem;    /* unused memory area */
+            public int used_mem;        /* used memory area */
+            public int unused_mem;      /* unused memory area */
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
@@ -641,8 +641,8 @@ namespace l99.driver.fanuc
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
             public short[] dummy;     /* dummy */
-            public short data;      /* running program number */
-            public short mdata;     /* main program number */
+            public short data;        /* running program number */
+            public short mdata;       /* main program number */
         }
 #else
     [StructLayout(LayoutKind.Sequential,Pack=4)]
@@ -661,7 +661,7 @@ namespace l99.driver.fanuc
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 36)]
             public char[] name;       /* running program name */
-            public int o_num;        /* running program number */
+            public int o_num;         /* running program number */
         }
 
         /* cnc_rdseqnum:read sequence number under execution */
@@ -670,7 +670,7 @@ namespace l99.driver.fanuc
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
             public short[] dummy;      /* dummy */
-            public int data;       /* sequence number */
+            public int data;           /* sequence number */
         }
 
         /* cnc_rdmdipntr:read execution pointer for MDI operation */
@@ -679,9 +679,9 @@ namespace l99.driver.fanuc
         public class ODBMDIP
         {
             public short mdiprog;    /* exec. program number */
-            public int mdipntr;    /* exec. pointer */
+            public int mdipntr;      /* exec. pointer */
             public short crntprog;   /* prepare program number */
-            public int crntpntr;   /* prepare pointer */
+            public int crntpntr;     /* prepare pointer */
         }
 #else
     [StructLayout(LayoutKind.Sequential,Pack=4)]
@@ -700,11 +700,11 @@ namespace l99.driver.fanuc
         {
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 4)]
             public string name = new string(' ', 4);   /* axis name */
-            public int data;                       /* position data */
-            public short dec;                        /* decimal position */
-            public short unit;                       /* data unit */
-            public short flag;                       /* flags */
-            public short reserve;                    /* reserve */
+            public int data;                           /* position data */
+            public short dec;                          /* decimal position */
+            public short unit;                         /* data unit */
+            public short flag;                         /* flags */
+            public short reserve;                      /* reserve */
         }
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         public class ODBAXDT
@@ -1207,7 +1207,7 @@ namespace l99.driver.fanuc
             [FieldOffset(4)]
             public int ldata;
         }*/
-        
+
         [StructLayout(LayoutKind.Sequential)]
         public class IODBPSD_1
         {
@@ -1226,7 +1226,7 @@ namespace l99.driver.fanuc
             [FieldOffset(0)]
             public int ldata;
         }
-    
+
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         public class IODBPSD_2
         {
@@ -3375,7 +3375,7 @@ namespace l99.driver.fanuc
         public int     axis;
         public short   alm_no;
     }
-    
+
     [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=4)]
     public class ALMINFO2_data
     {
@@ -8009,7 +8009,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_rddynamic2(ushort FlibHndl,
             short a, short b, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBDY2_1 c);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rddynamic2")]
 #elif LINUX64
@@ -8339,8 +8339,8 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_search")]
         public static extern short cnc_search(ushort FlibHndl, short a);
 #else
-    [DllImport("FWLIB32.dll", EntryPoint="cnc_searcho8")]
-    public static extern short cnc_search( ushort FlibHndl, int a );
+        [DllImport("FWLIB32.dll", EntryPoint="cnc_searcho8")]
+        public static extern short cnc_search(ushort FlibHndl, int a);
 #endif
 
         /* search specified program */
@@ -8356,8 +8356,8 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_delete")]
         public static extern short cnc_delete(ushort FlibHndl, short a);
 #else
-    [DllImport("FWLIB32.dll", EntryPoint="cnc_deleteo8")]
-    public static extern short cnc_delete( ushort FlibHndl, int a );
+        [DllImport("FWLIB32.dll", EntryPoint="cnc_deleteo8")]
+        public static extern short cnc_delete(ushort FlibHndl, int a);
 #endif
 
         /* delete program (area specified) */
@@ -8370,8 +8370,8 @@ namespace l99.driver.fanuc
         public static extern short cnc_rdprogdir(ushort FlibHndl,
             short a, short b, short c, ushort d, [Out, MarshalAs(UnmanagedType.LPStruct)] PRGDIR e);
 #else
-    [DllImport("FWLIB32.dll", EntryPoint="cnc_rdprogdiro8")]
-    public static extern short cnc_rdprogdir( ushort FlibHndl, 
+        [DllImport("FWLIB32.dll", EntryPoint="cnc_rdprogdiro8")]
+        public static extern short cnc_rdprogdir( ushort FlibHndl,
         short a, short b, short c, ushort d, [Out,MarshalAs(UnmanagedType.LPStruct)] PRGDIR e );
 #endif
 
@@ -8386,8 +8386,8 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_rdprgnum")]
         public static extern short cnc_rdprgnum(ushort FlibHndl, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBPRO a);
 #else
-    [DllImport("FWLIB32.dll", EntryPoint="cnc_rdprgnumo8")]
-    public static extern short cnc_rdprgnum( ushort FlibHndl, [Out,MarshalAs(UnmanagedType.LPStruct)] ODBPRO a );
+        [DllImport("FWLIB32.dll", EntryPoint="cnc_rdprgnumo8")]
+        public static extern short cnc_rdprgnum(ushort FlibHndl, [Out,MarshalAs(UnmanagedType.LPStruct)] ODBPRO a);
 #endif
 
         /* read program name under execution */
@@ -8437,7 +8437,7 @@ namespace l99.driver.fanuc
 
     /* read program under execution */
 #if ARMV7
-    [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdexecprog")]
+        [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdexecprog")]
 #elif LINUX64
         [DllImport("libfwlib32-linux-x64.so.1.0.5", EntryPoint = "cnc_rdexecprog")]
 #elif LINUX32_100
@@ -8462,8 +8462,8 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_rdmdipntr")]
         public static extern short cnc_rdmdipntr(ushort FlibHndl, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBMDIP a);
 #else
-    [DllImport("FWLIB32.dll", EntryPoint="cnc_rdmdipntro8")]
-    public static extern short cnc_rdmdipntr( ushort FlibHndl, [Out,MarshalAs(UnmanagedType.LPStruct)] ODBMDIP a );
+        [DllImport("FWLIB32.dll", EntryPoint="cnc_rdmdipntro8")]
+        public static extern short cnc_rdmdipntr(ushort FlibHndl, [Out,MarshalAs(UnmanagedType.LPStruct)] ODBMDIP a);
 #endif
 
         /* write execution pointer for MDI operation */
@@ -8658,7 +8658,7 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_wrtofs")]
         public static extern short cnc_wrtofs(ushort FlibHndl, short a, short b, short c, int d);
 
-        /* read tool offset value(area specified) */
+        /* read tool offset value (area specified) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_rdtofsr")]
         public static extern short cnc_rdtofsr(ushort FlibHndl,
             short a, short b, short c, short d, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBTO_1_1 e);
@@ -8675,7 +8675,7 @@ namespace l99.driver.fanuc
         public static extern short cnc_rdtofsr(ushort FlibHndl,
             short a, short b, short c, short d, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBTO_3 e);
 
-        /* write tool offset value(area specified) */
+        /* write tool offset value (area specified) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_wrtofsr")]
         public static extern short cnc_wrtofsr(ushort FlibHndl, short a, [In, MarshalAs(UnmanagedType.LPStruct)] IODBTO_1_1 b);
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_wrtofsr")]
@@ -8728,7 +8728,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_rdparam(ushort FlibHndl,
             short a, short b, short c, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBPSD_1 d);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdparam")]
 #elif LINUX64
@@ -8742,7 +8742,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_rdparam(ushort FlibHndl,
             short a, short b, short c, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBPSD_2 d);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdparam")]
 #elif LINUX64
@@ -8756,7 +8756,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_rdparam(ushort FlibHndl,
             short a, short b, short c, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBPSD_3 d);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdparam")]
 #elif LINUX64
@@ -9466,7 +9466,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_modal(ushort FlibHndl,
             short a, short b, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBMDL_1 c);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_modal")]
 #elif LINUX64
@@ -9480,7 +9480,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_modal(ushort FlibHndl,
             short a, short b, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBMDL_2 c);
-            
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_modal")]
 #elif LINUX64
@@ -9494,7 +9494,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_modal(ushort FlibHndl,
             short a, short b, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBMDL_3 c);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_modal")]
 #elif LINUX64
@@ -9508,7 +9508,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short cnc_modal(ushort FlibHndl,
             short a, short b, [Out, MarshalAs(UnmanagedType.LPStruct)] ODBMDL_4 c);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_modal")]
 #elif LINUX64
@@ -10621,19 +10621,19 @@ namespace l99.driver.fanuc
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_hpccatset")]
         public static extern short cnc_hpccatset(ushort FlibHndl);
 
-        /* read hpcc tuning data ( parameter input ) */
+        /* read hpcc tuning data (parameter input) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_rdhpcctupr")]
         public static extern short cnc_rdhpcctupr(ushort FlibHndl, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBHPPR a);
 
-        /* write hpcc tuning data ( parameter input ) */
+        /* write hpcc tuning data (parameter input) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_wrhpcctupr")]
         public static extern short cnc_wrhpcctupr(ushort FlibHndl, [In, MarshalAs(UnmanagedType.LPStruct)] IODBHPPR a);
 
-        /* read hpcc tuning data ( acc input ) */
+        /* read hpcc tuning data (acc input) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_rdhpcctuac")]
         public static extern short cnc_rdhpcctuac(ushort FlibHndl, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBHPAC a);
 
-        /* write hpcc tuning data ( acc input ) */
+        /* write hpcc tuning data (acc input) */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_wrhpcctuac")]
         public static extern short cnc_wrhpcctuac(ushort FlibHndl, [In, MarshalAs(UnmanagedType.LPStruct)] IODBHPAC a);
 
@@ -11170,7 +11170,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short pmc_rdpmcrng(ushort FlibHndl,
             short a, short b, ushort c, ushort d, ushort e, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBPMC0 f);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "pmc_rdpmcrng")]
 #elif LINUX64
@@ -11184,7 +11184,7 @@ namespace l99.driver.fanuc
 #endif
         public static extern short pmc_rdpmcrng(ushort FlibHndl,
             short a, short b, ushort c, ushort d, ushort e, [Out, MarshalAs(UnmanagedType.LPStruct)] IODBPMC1 f);
-        
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "pmc_rdpmcrng")]
 #elif LINUX64
@@ -11704,29 +11704,29 @@ namespace l99.driver.fanuc
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_startupprocess")]
         public static extern short cnc_startupprocess(long level, string filename);
-        
+
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_exitprocess")]
         public static extern short cnc_exitprocess();
 #elif LINUX64
         [DllImport("libfwlib32-linux-x64.so.1.0.5", EntryPoint = "cnc_startupprocess")]
         public static extern short cnc_startupprocess(long level, string filename);
-        
+
         [DllImport("libfwlib32-linux-x64.so.1.0.5", EntryPoint = "cnc_exitprocess")]
         public static extern short cnc_exitprocess();
 #elif LINUX32_100
         [DllImport("libfwlib32-linux-x86.so.1.0.0", EntryPoint = "cnc_startupprocess")]
         public static extern short cnc_startupprocess(long level, string filename);
-        
+
         [DllImport("libfwlib32-linux-x86.so.1.0.0", EntryPoint = "cnc_exitprocess")]
         public static extern short cnc_exitprocess();
 #elif LINUX32_105
         [DllImport("libfwlib32-linux-x86.so.1.0.5", EntryPoint = "cnc_startupprocess")]
         public static extern short cnc_startupprocess(long level, string filename);
-        
+
         [DllImport("libfwlib32-linux-x86.so.1.0.5", EntryPoint = "cnc_exitprocess")]
         public static extern short cnc_exitprocess();
 #endif
-  
+
 #if ARMV7
         [DllImport("libfwlib32-linux-armv7.so.1.0.5", EntryPoint = "cnc_rdcncid")]
 #elif LINUX64
@@ -11743,6 +11743,6 @@ namespace l99.driver.fanuc
         /* read program name under execution */
         [DllImport("FWLIB32.dll", EntryPoint = "cnc_exeprgname2")]
         public static extern short cnc_exeprgname2(ushort FlibHndl, [Out, MarshalAs(UnmanagedType.AsAny)] object b);
-        
+
     } // End for Focas1 class
 }

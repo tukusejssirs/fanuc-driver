@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdAxisName(data_num));
         }
-        
+
         public dynamic RdAxisName(short data_num = 8)
         {
             short data_num_out = data_num;
@@ -30,7 +30,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdaxisname = new {data_num}},
                 response = new {cnc_rdaxisname = new {data_num = data_num_out, axisname}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

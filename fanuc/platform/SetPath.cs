@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(SetPath(path_no));
         }
-        
+
         public dynamic SetPath(short path_no)
         {
             NativeDispatchReturn ndr = nativeDispatch(() =>
@@ -27,7 +27,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_setpath = new {path_no}},
                 response = new {cnc_setpath = new { }}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

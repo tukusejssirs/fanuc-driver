@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace l99.driver.fanuc
     partial class Program
     {
         private static ILogger _logger;
-        
+
         static async Task Main(string[] args)
         {
             string nlog_file = getArgument(args, "--nlog", "nlog.config");
@@ -36,7 +36,7 @@ namespace l99.driver.fanuc
             Console.WriteLine($"Argument '{option_name}' = '{option_value}'");
             return option_value;
         }
-        
+
         static Logger setupLogger(string config_file)
         {
             LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(config_file);
@@ -88,29 +88,29 @@ namespace l99.driver.fanuc
                         pub_changes = machine_conf["broker"]["publish_changes"],
                         pub_disco = machine_conf["broker"]["publish_disco"],
                         disco_base_topic = machine_conf["broker"]["disco_base_topic"],
-                        ip = machine_conf["broker"]["net_ip"], 
+                        ip = machine_conf["broker"]["net_ip"],
                         port = machine_conf["broker"]["net_port"],
                         auto_connect = machine_conf["broker"]["auto_connect"]
                     }
                 };
-                
+
                 _logger.Trace($"Machine configuration built:\n{JObject.FromObject(built_config).ToString()}");
-                
+
                 machine_confs.Add(built_config);
             }
 
             Brokers brokers = new Brokers();
             Machines machines = new Machines();
-            
+
             foreach (var cfg in machine_confs)
             {
                 _logger.Trace($"Creating machine from config:\n{JObject.FromObject(cfg).ToString()}");
-                
+
                 Broker broker = await brokers.AddAsync(cfg.broker);
                 Machine machine = machines.Add(cfg.machine, broker);
                 machine.AddCollector(Type.GetType(cfg.machine.collector), cfg.machine.collectorSweepMs);
                 await machine.AddHandlerAsync(Type.GetType(cfg.machine.handler));
-                
+
                 /*
                 Machine machine = machines
                     .Add(cfg.machine, await brokers.AddAsync(cfg.broker))
@@ -122,4 +122,4 @@ namespace l99.driver.fanuc
             return machines;
         }
     }
-}      
+}

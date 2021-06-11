@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdDynamic2(axis, length, ODBDY2_type));
         }
-        
+
         public dynamic RdDynamic2(short axis = 1, short length = 44, int ODBDY2_type = 2)
         {
             dynamic rddynamic = new object();
@@ -41,7 +41,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rddynamic2 = new {axis, length}},
                 response = new {cnc_rddynamic2 = new {rddynamic}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

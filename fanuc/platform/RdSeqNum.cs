@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdSeqNum());
         }
-        
+
         public dynamic RdSeqNum()
         {
             Focas1.ODBSEQ seqnum = new Focas1.ODBSEQ();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdseqnum = new { }},
                 response = new {cnc_rdseqnum = new {seqnum}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

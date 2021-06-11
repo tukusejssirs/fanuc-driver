@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(CNCId());
         }
-        
+
         public dynamic CNCId()
         {
             uint[] cncid = new uint[4];
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdcncid = new { }},
                 response = new {cnc_rdcncid = new {cncid}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

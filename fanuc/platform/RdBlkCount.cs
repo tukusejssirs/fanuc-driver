@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdBlkCount());
         }
-        
+
         public dynamic RdBlkCount()
         {
             int prog_bc = 0;
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdblkcount = new { }},
                 response = new {cnc_rdblkcount = new {prog_bc}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

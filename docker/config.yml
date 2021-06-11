@@ -1,3 +1,4 @@
+---
 machines:
   - id: sim
     enabled: !!bool true
@@ -18,3 +19,4 @@ machines:
       publish_changes: !!bool true
       publish_disco: !!bool true
       disco_base_topic: fanuc
+...

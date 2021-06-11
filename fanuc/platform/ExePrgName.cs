@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(ExePrgName());
         }
-        
+
         public dynamic ExePrgName()
         {
             Focas1.ODBEXEPRG exeprg = new Focas1.ODBEXEPRG();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_exeprgname = new { }},
                 response = new {cnc_exeprgname = new {exeprg}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

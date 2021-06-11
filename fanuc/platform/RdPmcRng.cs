@@ -10,7 +10,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdPmcRng(adr_type, data_type, s_number, e_number, length, IODBPMC_type));
         }
-        
+
         public dynamic RdPmcRng(short adr_type, short data_type, ushort s_number, ushort e_number, ushort length,
             int IODBPMC_type)
         {
@@ -45,7 +45,7 @@ namespace l99.driver.fanuc
                 request = new {pmc_rdpmcrng = new {adr_type, data_type, s_number, e_number, length, IODBPMC_type}},
                 response = new {pmc_rdpmcrng = new {buf, IODBPMC_type = buf.GetType().Name}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

@@ -8,10 +8,10 @@ namespace l99.driver.fanuc.handlers
     public class SplunkMetric: Handler
     {
         private int _counter = 0;
-        
+
         public SplunkMetric(Machine machine) : base(machine)
         {
-            
+
         }
 
         public override async Task<dynamic?> OnDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? beforeChange)
@@ -47,7 +47,7 @@ namespace l99.driver.fanuc.handlers
                         metric_name = "position"
                     }
                 };
-                
+
                 Console.WriteLine(
                     _counter++ + " > " +
                     JObject.FromObject(payload).ToString()
@@ -56,20 +56,20 @@ namespace l99.driver.fanuc.handlers
                 return payload;
             }
 
-            
+
             return null;
         }
-        
+
         protected override async Task afterDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? onChange)
         {
             if (onChange == null)
                 return;
-            
+
             var topic = $"fanuc/{veneers.Machine.Id}/splunk";
             string payload = JObject.FromObject(onChange).ToString();
             await veneers.Machine.Broker.PublishChangeAsync(topic, payload);
         }
-        
+
         protected override async Task afterDataErrorAsync(Veneers veneers, Veneer veneer, dynamic? onError)
         {
             /*

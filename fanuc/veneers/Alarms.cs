@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using l99.driver.@base;
 
@@ -8,17 +8,17 @@ namespace l99.driver.fanuc.veneers
     {
         public Alarms(string name = "", bool isInternal = false) : base(name, isInternal)
         {
-            _lastChangedValue = new 
+            _lastChangedValue = new
             {
                 alarms = new List<dynamic>() { -1 }
             };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             var success = true;
             var temp_value = new List<dynamic>() ;
-            
+
             foreach (var key in input.response.cnc_rdalmmsg_ALL.Keys)
             {
                 var type_success = input.response.cnc_rdalmmsg_ALL[key].success;
@@ -44,14 +44,14 @@ namespace l99.driver.fanuc.veneers
                     }
                 }
             }
-            
+
             if (success)
             {
                 var current_value = new
                 {
                     alarms = temp_value
                 };
-                
+
                 await onDataArrivedAsync(input, current_value);
 
                 if (current_value.alarms.IsDifferentHash((List<dynamic>) _lastChangedValue.alarms))

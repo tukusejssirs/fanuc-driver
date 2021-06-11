@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdExecProg(length));
         }
-        
+
         public dynamic RdExecProg(short length = 1024)
         {
             //length = 96;
@@ -48,7 +48,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdexecprog = new {length}},
                 response = new {cnc_rdexecprog = new {length = length_out, blknum, data}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

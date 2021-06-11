@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(Disconnect());
         }
-        
+
         public dynamic Disconnect()
         {
             NativeDispatchReturn ndr = nativeDispatch(() =>
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
             };
 
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
-            
+
             return nr;
         }
     }

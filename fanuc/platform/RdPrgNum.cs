@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdPrgNum());
         }
-        
+
         public dynamic RdPrgNum()
         {
             Focas1.ODBPRO prgnum = new Focas1.ODBPRO();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdprgnum = new { }},
                 response = new {cnc_rdprgnum = new {prgnum}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

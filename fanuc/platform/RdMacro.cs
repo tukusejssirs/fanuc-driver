@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdMacro(number, length));
         }
-        
+
         public dynamic RdMacro(short number = 1, short length = 10)
         {
             Focas1.ODBM macro = new Focas1.ODBM();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnd_rdmacro = new {number, length}},
                 response = new {cnd_rdmacro = new {macro}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

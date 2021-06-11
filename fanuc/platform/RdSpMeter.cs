@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdSpMeter(type, data_num));
         }
-        
+
         public dynamic RdSpMeter(short type = 0, short data_num = 4)
         {
             short data_num_out = data_num;
@@ -30,7 +30,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdspmeter = new {type, data_num}},
                 response = new {cnc_rdspmeter = new {data_num = data_num_out, loadmeter}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

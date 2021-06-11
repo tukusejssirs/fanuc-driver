@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(GetPath(path_no));
         }
-        
+
         public dynamic GetPath(short path_no = 0)
         {
             short maxpath_no = 0, path_no_out = path_no;
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_getpath = new {path_no}},
                 response = new {cnc_getpath = new {path_no = path_no_out, maxpath_no}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

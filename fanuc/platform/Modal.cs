@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(Modal(type, block, ODBMDL_type));
         }
-        
+
         public dynamic Modal(short type = 0, short block = 0, int ODBMDL_type = 1)
         {
             dynamic modal = new object();
@@ -48,7 +48,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_modal = new {type, block, ODBMDL_type}},
                 response = new {cnc_modal = new {modal, modal_type = modal.GetType().Name}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

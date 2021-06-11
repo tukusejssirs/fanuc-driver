@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -19,9 +19,9 @@ namespace l99.driver.fanuc
 
             return character.ToString().Trim();
         }
-        
+
         public static bool IsDifferentHash(this IEnumerable<dynamic> one, IEnumerable<dynamic> two)
-        { 
+        {
             var one_hc = one.Select(x => x.GetHashCode());
             var two_hc = two.Select(x => x.GetHashCode());
 

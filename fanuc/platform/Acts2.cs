@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(Acts2(sp_no));
         }
-        
+
         public dynamic Acts2(short sp_no = -1)
         {
             Focas1.ODBACT2 actualspindle = new Focas1.ODBACT2();
@@ -29,8 +29,8 @@ namespace l99.driver.fanuc
                 request = new {cnc_acts2 = new {sp_no}},
                 response = new {cnc_acts2 = new {actualspindle}}
             };
-            
-            
+
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

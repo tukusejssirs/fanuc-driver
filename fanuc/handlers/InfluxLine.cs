@@ -9,10 +9,10 @@ namespace l99.driver.fanuc.handlers
     public class InfluxLine: Handler
     {
         private int _counter = 0;
-        
+
         public InfluxLine(Machine machine) : base(machine)
         {
-            
+
         }
 
         public override async Task<dynamic?> OnDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? beforeChange)
@@ -42,7 +42,7 @@ namespace l99.driver.fanuc.handlers
                     .Tag("axis_name", (veneer.Marker[1].name + veneer.Marker[1].suff).ToString())
                     .Field("position", (float) veneer.LastArrivedValue.pos.absolute)
                     .Field("feed", (float) veneer.LastArrivedValue.actf);
-                
+
                 Console.WriteLine(
                     _counter++ + " > " +
                     payload
@@ -51,23 +51,23 @@ namespace l99.driver.fanuc.handlers
                 return payload;
             }
 
-            
+
             return null;
         }
-        
+
         protected override async Task afterDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? onChange)
         {
             if (onChange == null)
             {
-                
+
                 return;
             }
-                
+
             var topic = $"fanuc/{veneers.Machine.Id}/influx";
             string payload = JObject.FromObject(onChange).ToString();
             await veneers.Machine.Broker.PublishChangeAsync(topic, payload);
         }
-        
+
         protected override async Task afterDataErrorAsync(Veneers veneers, Veneer veneer, dynamic? onError)
         {
             /*
@@ -77,8 +77,8 @@ namespace l99.driver.fanuc.handlers
                 method = veneer.LastArrivedInput.method, rc = veneer.LastArrivedInput.rc
             });
             */
-            
-            
+
+
         }
     }
 }

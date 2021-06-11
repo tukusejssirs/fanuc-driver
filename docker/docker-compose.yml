@@ -1,3 +1,4 @@
+---
 version: '3.7'
 
 services:
@@ -17,7 +18,7 @@ services:
       options:
         max-file: "5"
         max-size: "1m"
-  
+
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto
@@ -38,7 +39,7 @@ services:
       options:
         max-file: "5"
         max-size: "1m"
-    
+
   streamsheets:
     image: cedalo/streamsheets:2-milestone-rpi
     container_name: streamsheets
@@ -74,7 +75,7 @@ services:
       options:
         max-file: "5"
         max-size: "1m"
-  
+
   portainer:
     container_name: portainer
     image: portainer/portainer-ce
@@ -97,3 +98,4 @@ volumes:
 networks:
   fanuc:
     name: fanuc
+...

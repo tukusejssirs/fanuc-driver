@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using l99.driver.@base;
 using Newtonsoft.Json.Linq;
@@ -9,9 +9,9 @@ namespace l99.driver.fanuc.collectors
     {
         public ServoData(Machine machine, int sweepMs = 1000) : base(machine, sweepMs)
         {
-            
+
         }
-        
+
         public override async Task<dynamic?> InitializeAsync()
         {
             try
@@ -19,14 +19,14 @@ namespace l99.driver.fanuc.collectors
                 while (!_machine.VeneersApplied)
                 {
                     dynamic connect = await _machine["platform"].ConnectAsync();
-                    
+
                     if (connect.success)
                     {
                         dynamic path = await _machine["platform"].SetPathAsync(1);
                         dynamic x = await _machine["platform"].SvdtStartRdAsync(1);
-                        
+
                         dynamic disconnect = await _machine["platform"].DisconnectAsync();
-                        
+
                         _machine.VeneersApplied = true;
                     }
                     else
@@ -42,24 +42,24 @@ namespace l99.driver.fanuc.collectors
 
             return null;
         }
-   
+
         public override async Task<dynamic?> CollectAsync()
         {
             try
             {
                 dynamic connect = await _machine["platform"].ConnectAsync();
-                
+
                 if (connect.success)
                 {
                     dynamic x = await _machine["platform"].SvdtRdDataAsync(1024);
-                    
+
                     dynamic disconnect = await _machine["platform"].DisconnectAsync();
                 }
-                
+
                 LastSuccess = connect.success;
 
-                
-                
+
+
                 LastSuccess = true;
             }
             catch (Exception ex)

@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdTimer(type));
         }
-        
+
         public dynamic RdTimer(short type = 0)
         {
             Focas1.IODBTIME time = new Focas1.IODBTIME();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdtimer = new {type}},
                 response = new {cnc_rdtimer = new {time}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(SvdtEndRd());
         }
-        
+
         public dynamic SvdtEndRd()
         {
             NativeDispatchReturn ndr = nativeDispatch(() =>
@@ -27,7 +27,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_svdtendrd = new {}},
                 response = new {cnc_svdtendrd = new {}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

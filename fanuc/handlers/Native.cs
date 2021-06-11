@@ -9,7 +9,7 @@ namespace l99.driver.fanuc.handlers
     {
         public Native(Machine machine) : base(machine)
         {
-            
+
         }
 
         public override async Task<dynamic?> OnDataArrivalAsync(Veneers veneers, Veneer veneer, dynamic? beforeArrival)
@@ -38,14 +38,14 @@ namespace l99.driver.fanuc.handlers
 
             return payload;
         }
-        
+
         protected override async Task afterDataArrivalAsync(Veneers veneers, Veneer veneer, dynamic? onArrival)
         {
             var topic = $"fanuc/{veneers.Machine.Id}-all/{veneer.Name}{(veneer.SliceKey == null ? string.Empty : "/" + veneer.SliceKey.ToString())}";
             string payload = JObject.FromObject(onArrival).ToString();
             await veneers.Machine.Broker.PublishArrivalAsync(topic, payload);
         }
-        
+
         public override async Task<dynamic?> OnDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? beforeChange)
         {
             dynamic payload = new
@@ -72,14 +72,14 @@ namespace l99.driver.fanuc.handlers
 
             return payload;
         }
-        
+
         protected override async Task afterDataChangeAsync(Veneers veneers, Veneer veneer, dynamic? onChange)
         {
             var topic = $"fanuc/{veneers.Machine.Id}/{veneer.Name}{(veneer.SliceKey == null ? string.Empty : "/" + veneer.SliceKey.ToString())}";
             string payload = JObject.FromObject(onChange).ToString();
             await veneers.Machine.Broker.PublishChangeAsync(topic, payload);
         }
-        
+
         public override async Task<dynamic?> OnCollectorSweepCompleteAsync(Machine machine, dynamic? beforeSweepComplete)
         {
             dynamic payload = new
@@ -99,16 +99,16 @@ namespace l99.driver.fanuc.handlers
                     data = machine.CollectorSuccess ? "OK" : "NOK"
                 }
             };
-            
+
             return payload;
         }
-        
+
         protected override async Task afterSweepCompleteAsync(Machine machine, dynamic? onSweepComplete)
         {
             string topic_all = $"fanuc/{machine.Id}-all/PING";
             string topic = $"fanuc/{machine.Id}/PING";
             string payload = JObject.FromObject(onSweepComplete).ToString();
-            
+
             await machine.Broker.PublishArrivalStatusAsync(topic_all, payload);
             await machine.Broker.PublishChangeStatusAsync(topic, payload);
         }

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using l99.driver.@base;
 
 namespace l99.driver.fanuc.veneers
@@ -9,7 +9,7 @@ namespace l99.driver.fanuc.veneers
         {
             _lastChangedValue = new { data = string.Empty };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             if (input.success)
@@ -18,9 +18,9 @@ namespace l99.driver.fanuc.veneers
                 string[] source_lines = source.Split('\n');
                 string source_line = source_lines[0].Trim(char.MinValue, ' ');
                 var current_value = new { data = source_line };
-                
+
                 await onDataArrivedAsync(input, current_value);
-                
+
                 if (!current_value.Equals(_lastChangedValue))
                 {
                     await onDataChangedAsync(input, current_value);

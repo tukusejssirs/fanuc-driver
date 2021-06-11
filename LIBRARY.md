@@ -1,5 +1,3 @@
-
-
 | Name | Bitness | Description |
 |---|---|---|
 | FWLIB32.DLL | 32 | CNC/PMC Data window control library | 7.3.0.1 |

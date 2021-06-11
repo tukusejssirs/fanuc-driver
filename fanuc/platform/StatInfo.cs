@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(StatInfo());
         }
-        
+
         public dynamic StatInfo()
         {
             Focas1.ODBST statinfo = new Focas1.ODBST();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_statinfo = new { }},
                 response = new {cnc_statinfo = new {statinfo}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

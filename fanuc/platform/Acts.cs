@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(Acts());
         }
-        
+
         public dynamic Acts()
         {
             Focas1.ODBACT actualfeed = new Focas1.ODBACT();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_acts = new { }},
                 response = new {cnc_acts = new {actualfeed}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using l99.driver.@base;
@@ -36,9 +36,9 @@ namespace l99.driver.fanuc
         {
             get => _focasEndpoint;
         }
-        
+
         private FocasEndpoint _focasEndpoint;
-        
+
         public FanucMachine(Machines machines, bool enabled, string id, object config) : base(machines, enabled, id, config)
         {
             dynamic cfg = (dynamic) config;

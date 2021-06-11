@@ -11,7 +11,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdAlmMsg(type, num));
         }
-        
+
         public dynamic RdAlmMsg(short type = 0, short num = 10)
         {
             short num_out = num;
@@ -37,7 +37,7 @@ namespace l99.driver.fanuc
 
             return nr;
         }
-        
+
         public async Task<dynamic> RdAlmMsgAllAsync(short count = 10, short maxType = 20)
         {
             var alms = new Dictionary<short, dynamic>();
@@ -58,12 +58,12 @@ namespace l99.driver.fanuc
                 request = new { cnc_rdalmmsg_ALL = new { minType = 0, maxType, count } },
                 response = new { cnc_rdalmmsg_ALL = alms }
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;
         }
-        
+
         public dynamic RdAlmMsgAll(short count = 10, short maxType = 20)
         {
             var alms = new Dictionary<short, dynamic>();
@@ -84,7 +84,7 @@ namespace l99.driver.fanuc
                 request = new { cnc_rdalmmsg_ALL = new { minType = 0, maxType, count } },
                 response = new { cnc_rdalmmsg_ALL = alms }
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

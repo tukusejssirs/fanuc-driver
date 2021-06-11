@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using NLog;
 
@@ -7,7 +7,7 @@ namespace l99.driver.fanuc
     public partial class Platform
     {
         private ILogger _logger;
-        
+
         private FanucMachine _machine;
 
         private ushort _handle;
@@ -17,7 +17,7 @@ namespace l99.driver.fanuc
             public Focas1.focas_ret RC;
             public long ElapsedMilliseconds;
         }
-        
+
         private Func<Func<Focas1.focas_ret>, NativeDispatchReturn> nativeDispatch = (nativeCallWrapper) =>
         {
             Focas1.focas_ret rc = Focas1.focas_ret.EW_OK;
@@ -31,7 +31,7 @@ namespace l99.driver.fanuc
                 ElapsedMilliseconds = sw.ElapsedMilliseconds
             };
         };
-        
+
         public Platform(FanucMachine machine)
         {
             _logger = LogManager.GetCurrentClassLogger();

@@ -74,6 +74,7 @@ Reads system information such as kind of CNC system, Machining(M) or Turning(T),
 * handler: Native
 
 `fanuc/{id}/sys_info/1`
+
 ```json
 {
   "addinfo": 1090,
@@ -646,7 +647,7 @@ Reads the gear ratio of the serial spindle.
 
 # CNC_DIAGNOSS
 
-Reads the diagnosis specified by "number","axis" (only for the diagnosis with axis).
+Reads the diagnosis specified by "number", "axis" (only for the diagnosis with axis).
 
 [Fanuc 30i Diagnosis Parameters](docs/Fanuc_30i_diagnosis_parameters.pdf)
 

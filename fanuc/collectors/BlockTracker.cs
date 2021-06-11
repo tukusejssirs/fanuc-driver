@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using l99.driver.@base;
 using l99.driver.fanuc.gcode;

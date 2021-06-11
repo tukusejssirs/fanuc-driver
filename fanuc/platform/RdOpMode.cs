@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdOpMode());
         }
-        
+
         public dynamic RdOpMode()
         {
             short mode = 0; // array?
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdopmode = new { }},
                 response = new {cnc_rdopmode = new {mode}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

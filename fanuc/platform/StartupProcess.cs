@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(StartupProcess(level, filename));
         }
-        
+
         public dynamic StartupProcess(short level = 0, string filename = "~/focas2.log")
         {
 #if ARMV7 || LINUX64 || LINUX32
@@ -28,7 +28,7 @@ namespace l99.driver.fanuc
                 request = new { cnc_startupprocess = new { level, filename } },
                 response = new { cnc_startupprocess = new { } }
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;
@@ -43,7 +43,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_startupprocess = new {level, filename}},
                 response = new {cnc_startupprocess = new { }}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

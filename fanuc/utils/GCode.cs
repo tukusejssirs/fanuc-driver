@@ -6,16 +6,16 @@ using System.Text;
 namespace l99.driver.fanuc.gcode
 {
     /* block tracking usage
-     
+
     private Blocks _blocks = new Blocks();
     private short _readAheadBytes = 128;
-    
+
     dynamic blkcount = await _machine["platform"].RdBlkCountAsync();
     dynamic actpt = await _machine["platform"].RdActPtAsync();
     dynamic execprog = await _machine["platform"].RdExecProgAsync(_readAheadBytes);
     _blocks.Add(blkcount.response.cnc_rdblkcount.prog_bc, actpt.response.cnc_rdactpt.blk_no, execprog.response.cnc_rdexecprog.data);
     Console.WriteLine(_blocks.ToString(showMissedBlocks: true));
-    
+
     */
 
     public class Blocks
@@ -91,15 +91,15 @@ namespace l99.driver.fanuc.gcode
             }
 
             IsPointerValid = true;
-            
+
             int baseBlockPointer = blockCounter - 1;
             string[] blockTextArray = string.Join("", nativeBlockText).Trim().Split('\n');
-            
+
             for (int blockPointerOffset = 0; blockPointerOffset < blockTextArray.Length - (dropLast?1:0); blockPointerOffset++)
             {
                 if (!_blocks.ContainsKey(baseBlockPointer + blockPointerOffset))
                 {
-                    _blocks.Add(baseBlockPointer + blockPointerOffset, 
+                    _blocks.Add(baseBlockPointer + blockPointerOffset,
                         new Block()
                         {
                             BlockNumber = baseBlockPointer + blockPointerOffset,
@@ -113,7 +113,7 @@ namespace l99.driver.fanuc.gcode
 
             return true;
         }
-        
+
         public int MissedBlockCount
         {
             get
@@ -133,7 +133,7 @@ namespace l99.driver.fanuc.gcode
                         return 0;
                     }
                 }
-                
+
             }
         }
 
@@ -166,7 +166,7 @@ namespace l99.driver.fanuc.gcode
                 List<Block> blocks = new List<Block>();
                 if(_blocks.ContainsKey(CurrentBlockPointer))
                     blocks.Add(_blocks[CurrentBlockPointer]);
-                
+
                 if (MissedBlockCount > 0)
                 {
                     foreach (var missedBlock in MissedBlockNumbers.Reverse())
@@ -179,7 +179,7 @@ namespace l99.driver.fanuc.gcode
                         {
                             blocks.Add(new Block
                             {
-                                BlockNumber = missedBlock, 
+                                BlockNumber = missedBlock,
                                 BlockText = "?"
                             });
                         }

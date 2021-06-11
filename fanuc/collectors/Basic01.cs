@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using l99.driver.@base;
 using Newtonsoft.Json.Linq;
@@ -9,9 +9,9 @@ namespace l99.driver.fanuc.collectors
     {
         public Basic01(Machine machine, int sweepMs = 1000) : base(machine, sweepMs)
         {
-            
+
         }
-        
+
         public override async Task<dynamic?> InitializeAsync()
         {
             try
@@ -19,7 +19,7 @@ namespace l99.driver.fanuc.collectors
                 while (!_machine.VeneersApplied)
                 {
                     dynamic connect = await _machine["platform"].ConnectAsync();
-                    
+
                     if (connect.success)
                     {
                         _machine.ApplyVeneer(typeof(fanuc.veneers.Connect), "connect");
@@ -46,7 +46,7 @@ namespace l99.driver.fanuc.collectors
 
             return null;
         }
-   
+
         public override async Task<dynamic?> CollectAsync()
         {
             try

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace l99.driver.fanuc.veneers
                 }
             };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             var max = ((List<dynamic>)input.focas_invocations).MaxBy(o => o.invocationMs).First();
@@ -33,7 +33,7 @@ namespace l99.driver.fanuc.veneers
             var failedMethods = ((List<dynamic>) input.focas_invocations)
                 .Where(o => o.rc != 0)
                 .Select(o => new { o.method, o.rc });
-            
+
             var current_value = new
             {
                 input.sweepMs,
@@ -47,9 +47,9 @@ namespace l99.driver.fanuc.veneers
                     failedMethods
                 }
             };;
-                
+
             await onDataArrivedAsync(input, current_value);
-                
+
             return new { veneer = this };
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using l99.driver.@base;
 
 namespace l99.driver.fanuc.veneers
@@ -17,7 +17,7 @@ namespace l99.driver.fanuc.veneers
                 axes = string.Empty
             };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             if (input.success)
@@ -32,9 +32,9 @@ namespace l99.driver.fanuc.veneers
                     version = string.Join("", input.response.cnc_sysinfo.sysinfo.version),
                     axes = string.Join("", input.response.cnc_sysinfo.sysinfo.axes)
                 };
-                
+
                 await onDataArrivedAsync(input, current_value);
-                
+
                 if (!current_value.Equals(this._lastChangedValue))
                 {
                     await onDataChangedAsync(input, current_value);

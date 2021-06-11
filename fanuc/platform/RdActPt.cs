@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdActPt());
         }
-        
+
         public dynamic RdActPt()
         {
             int prog_no = 0;
@@ -30,7 +30,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdactpt = new { }},
                 response = new {cnc_rdactpt = new {prog_no, blk_no}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

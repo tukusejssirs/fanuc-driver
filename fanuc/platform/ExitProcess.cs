@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(ExitProcess());
         }
-        
+
         public dynamic ExitProcess()
         {
 #if ARMV7 || LINUX64 || LINUX32
@@ -28,7 +28,7 @@ namespace l99.driver.fanuc
                 request = new { cnc_exitprocess = new {  } },
                 response = new { cnc_exitprocess = new { } }
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;
@@ -43,8 +43,8 @@ namespace l99.driver.fanuc
                 request = new {cnc_exitprocess = new { }},
                 response = new {cnc_exitprocess = new { }}
             };
-            
-            
+
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

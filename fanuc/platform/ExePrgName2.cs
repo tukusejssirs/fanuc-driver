@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(ExePrgName2());
         }
-        
+
         public dynamic ExePrgName2()
         {
             char[] path_name = new char[256];
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_exeprgname2 = new { }},
                 response = new {cnc_exeprgname2 = new {path_name}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

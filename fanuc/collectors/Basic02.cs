@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace l99.driver.fanuc.collectors
 
                     // connect to the controller, we will interrogate its execution paths later
                     dynamic connect = await _machine["platform"].ConnectAsync();
-                    
+
                     if (connect.success)
                     {
                         // below veneers will reveal observations relevant to the entire controller

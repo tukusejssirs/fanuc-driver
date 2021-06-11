@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdSvMeter());
         }
-        
+
         public dynamic RdSvMeter(short data_num = 8)
         {
             short data_num_out = data_num;
@@ -33,7 +33,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdsvmeter = new {data_num}},
                 response = new {cnc_rdsvmeter = new {data_num = data_num_out, loadmeter}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

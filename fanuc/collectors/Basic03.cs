@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace l99.driver.fanuc.collectors
     {
         public Basic03(Machine machine, int sweepMs = 1000) : base(machine, sweepMs)
         {
-            
+
         }
-        
+
         public override async Task<dynamic?> InitializeAsync()
         {
             try
@@ -21,7 +21,7 @@ namespace l99.driver.fanuc.collectors
                 while (!_machine.VeneersApplied)
                 {
                     dynamic connect = await _machine["platform"].ConnectAsync();
-                    
+
                     if (connect.success)
                     {
                         _machine.ApplyVeneer(typeof(fanuc.veneers.Connect), "connect");
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc.collectors
                         _machine.ApplyVeneer(typeof(fanuc.veneers.RdTimer), "power_on_time");
                         _machine.ApplyVeneer(typeof(fanuc.veneers.RdParamLData), "power_on_time_6750");
                         _machine.ApplyVeneer(typeof(fanuc.veneers.GetPath), "get_path");
-                        
+
                         dynamic paths = await _machine["platform"].GetPathAsync();
 
                         IEnumerable<int> path_slices = Enumerable
@@ -40,7 +40,7 @@ namespace l99.driver.fanuc.collectors
                         _machine.ApplyVeneerAcrossSlices(typeof(fanuc.veneers.SysInfo), "sys_info");
                         _machine.ApplyVeneerAcrossSlices(typeof(fanuc.veneers.RdAxisname), "axis_name");
                         _machine.ApplyVeneerAcrossSlices(typeof(fanuc.veneers.RdSpindlename), "spindle_name");
-                        
+
                         // below we will be adding axis specific observations
                         // axes are children of a path
                         for (short current_path = paths.response.cnc_getpath.path_no;
@@ -63,15 +63,15 @@ namespace l99.driver.fanuc.collectors
                                 axis_slices.Add(((char) axis.name).AsAscii() +
                                                 ((char) axis.suff).AsAscii());
                             }
-                            
+
                             // now slice the current path's veneers using the axis names
                             _machine.SliceVeneer(current_path, axis_slices.ToArray());
                             // apply the 'axis_data' observation to the current path and its axes
                             _machine.ApplyVeneerAcrossSlices(current_path, typeof(fanuc.veneers.RdDynamic2), "axis_data");
                         }
-                        
+
                         dynamic disconnect = await _machine["platform"].DisconnectAsync();
-                        
+
                         _machine.VeneersApplied = true;
                     }
                     else
@@ -99,13 +99,13 @@ namespace l99.driver.fanuc.collectors
                 {
                     dynamic cncid = await _machine["platform"].CNCIdAsync();
                     await _machine.PeelVeneerAsync("cnc_id", cncid);
-                    
+
                     dynamic poweron = await _machine["platform"].RdTimerAsync(0);
                     await _machine.PeelVeneerAsync("power_on_time", poweron);
-                    
+
                     dynamic poweron_6750 = _machine["platform"].RdParamDoubleWordNoAxisAsync(6750);
                     await _machine.PeelVeneerAsync("power_on_time_6750", poweron_6750);
-                    
+
                     dynamic paths = await _machine["platform"].GetPathAsync();
                     await _machine.PeelVeneerAsync("get_path", paths);
 
@@ -125,9 +125,9 @@ namespace l99.driver.fanuc.collectors
 
                         dynamic spindles = await _machine["platform"].RdSpdlNameAsync();
                         await _machine.PeelAcrossVeneerAsync(current_path, "spindle_name", spindles);
-                        
+
                         var fields = axes.response.cnc_rdaxisname.axisname.GetType().GetFields();
-                        
+
                         for (short current_axis = 1;
                             current_axis <= axes.response.cnc_rdaxisname.data_num;
                             current_axis++)
@@ -136,10 +136,10 @@ namespace l99.driver.fanuc.collectors
                             dynamic axis_name = ((char) axis.name).AsAscii() + ((char) axis.suff).AsAscii();
                             dynamic axis_marker = new
                             {
-                                name = ((char)axis.name).AsAscii(), 
+                                name = ((char)axis.name).AsAscii(),
                                 suff = ((char)axis.suff).AsAscii()
                             };
-                            
+
                             // mark the current path and axis
                             //  path 1      1, X1;  1, Y1;  1, Z1;  1, A1;
                             //  path 2      2, B1;

@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdSpLoad(sp_no));
         }
-        
+
         public dynamic RdSpLoad(short sp_no = 1)
         {
             Focas1.ODBSPN serial_spindle = new Focas1.ODBSPN();
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdspload = new {sp_no}},
                 response = new {cnc_rdspload = new {serial_spindle}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

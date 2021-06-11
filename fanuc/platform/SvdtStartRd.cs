@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(SvdtStartRd(axis));
         }
-        
+
         public dynamic SvdtStartRd(short axis)
         {
             NativeDispatchReturn ndr = nativeDispatch(() =>
@@ -27,7 +27,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_svdtstartrd = new {axis}},
                 response = new {cnc_svdtstartrd = new {}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

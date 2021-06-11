@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using l99.driver.@base;
 
 namespace l99.driver.fanuc.veneers
@@ -18,7 +18,7 @@ namespace l99.driver.fanuc.veneers
                 alarm = -1
             };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             if (input.success)
@@ -33,9 +33,9 @@ namespace l99.driver.fanuc.veneers
                     input.response.cnc_statinfo.statinfo.emergency,
                     input.response.cnc_statinfo.statinfo.alarm
                 };
-                
+
                 await onDataArrivedAsync(input, current_value);
-                
+
                 if (!current_value.Equals(this._lastChangedValue))
                 {
                     await onDataChangedAsync(input, current_value);

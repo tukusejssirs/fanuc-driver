@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using l99.driver.@base;
@@ -12,10 +12,10 @@ namespace l99.driver.fanuc.veneers
             _lastChangedValue = new
             {
                 name = string.Empty,
-                
+
             };
         }
-        
+
         protected override async Task<dynamic> AnyAsync(dynamic input, params dynamic?[] additional_inputs)
         {
             if (input.success)
@@ -31,9 +31,9 @@ namespace l99.driver.fanuc.veneers
                 {
                     name = spindle_name
                 };
-                
+
                 await onDataArrivedAsync(input, current_value);
-                
+
                 if(current_value.IsDifferentString((object)_lastChangedValue))
                     await onDataChangedAsync(input, current_value);
             }
@@ -41,7 +41,7 @@ namespace l99.driver.fanuc.veneers
             {
                 await onErrorAsync(input);
             }
-            
+
             return new { veneer = this };
         }
     }

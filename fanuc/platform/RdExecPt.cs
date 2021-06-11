@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(RdExecPt());
         }
-        
+
         public dynamic RdExecPt()
         {
             Focas1.PRGPNT pact = new Focas1.PRGPNT();
@@ -30,7 +30,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_rdexecpt = new { }},
                 response = new {cnc_rdexecpt = new {pact, pnext}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

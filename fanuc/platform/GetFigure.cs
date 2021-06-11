@@ -9,7 +9,7 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(GetFigure(data_type, axis));
         }
-        
+
         public dynamic GetFigure(short data_type = 0, short axis = 8)
         {
             short valid_fig = 0; short[] dec_fig_in = new short[axis]; short[] dec_fig_out = new short[axis];
@@ -29,7 +29,7 @@ namespace l99.driver.fanuc
                 request = new {cnc_getfigure = new {data_type, axis}},
                 response = new {cnc_getfigure = new {valid_fig, dec_fig_in, dec_fig_out}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;

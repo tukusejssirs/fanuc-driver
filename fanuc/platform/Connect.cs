@@ -9,15 +9,15 @@ namespace l99.driver.fanuc
         {
             return await Task.FromResult(Connect());
         }
-        
+
         public dynamic Connect()
         {
             NativeDispatchReturn ndr = nativeDispatch(() =>
             {
                 return (Focas1.focas_ret) Focas1.cnc_allclibhndl3(
-                    _machine.FocasEndpoint.IPAddress, 
+                    _machine.FocasEndpoint.IPAddress,
                     _machine.FocasEndpoint.Port,
-                    _machine.FocasEndpoint.ConnectionTimeout, 
+                    _machine.FocasEndpoint.ConnectionTimeout,
                     out _handle);
             });
 
@@ -32,14 +32,14 @@ namespace l99.driver.fanuc
                 {
                     cnc_allclibhndl3 = new
                         {
-                            ipaddr = _machine.FocasEndpoint.IPAddress, 
-                            port = _machine.FocasEndpoint.Port, 
+                            ipaddr = _machine.FocasEndpoint.IPAddress,
+                            port = _machine.FocasEndpoint.Port,
                             timeout = _machine.FocasEndpoint.ConnectionTimeout
                         }
                 },
                 response = new {cnc_allclibhndl3 = new {FlibHndl = _handle}}
             };
-            
+
             _logger.Trace($"[{_machine.Id}] Platform invocation result:\n{JObject.FromObject(nr).ToString()}");
 
             return nr;
