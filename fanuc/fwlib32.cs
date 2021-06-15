@@ -1234,23 +1234,54 @@ namespace l99.driver.fanuc
             public short type;      /* axis number */
             public REALPRM rdata = new REALPRM();
         }
-        [StructLayout(LayoutKind.Explicit)]
+
+
+
+        // [StructLayout(LayoutKind.Explicit)]
+        // public class IODBPSD_3
+        // {
+        //     [FieldOffset(0)]
+        //     public short datano;    /* data number */
+        //     [FieldOffset(2)]
+        //     public short type;      /* axis number */
+        //     [FieldOffset(4),
+        //     MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+        //     public byte[] cdatas = new byte[MAX_AXIS];
+        //     [FieldOffset(4),
+        //     MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+        //     public short[] idatas = new short[MAX_AXIS];
+        //     [FieldOffset(4),
+        //     MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+        //     public int[] ldatas = new int[MAX_AXIS];
+        // }
+
+
+        [StructLayout(LayoutKind.Sequential)]
         public class IODBPSD_3
         {
-            [FieldOffset(0)]
-            public short datano;    /* data number */
-            [FieldOffset(2)]
-            public short type;      /* axis number */
-            [FieldOffset(4),
-           MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
-            public byte[] cdatas = new byte[MAX_AXIS];
-            [FieldOffset(4),
-           MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
-            public short[] idatas = new short[MAX_AXIS];
-            [FieldOffset(4),
-           MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
-            public int[] ldatas = new int[MAX_AXIS];
+            public short datano;
+            public short type;
+            public IODBPSD_3_INNER data;
         }
+
+        [StructLayout(LayoutKind.Explicit)]
+        public class IODBPSD_3_INNER
+        {
+            [FieldOffset(0),
+            MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+            public byte[] cdatas = new byte[MAX_AXIS];
+            [FieldOffset(0),
+            MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+            public short[] idatas = new short[MAX_AXIS];
+            [FieldOffset(0),
+            MarshalAs(UnmanagedType.ByValArray, SizeConst = MAX_AXIS)]
+            public int[] ldatas = new int[MAX_AXIS];
+
+            // _logger.Error("cdatas : ", cdatas, "\nidatas : ", idatas, "\nldatas : ", ldatas);
+        }
+
+
+
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         public class IODBPSD_4
         {

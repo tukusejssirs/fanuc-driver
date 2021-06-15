@@ -45,6 +45,7 @@ namespace l99.driver.fanuc
                     break;
                 case 3:
                     param = new Focas1.IODBPSD_3();
+                    // Console.WriteLine(param);
                     break;
                 case 4:
                     param = new Focas1.IODBPSD_4();
